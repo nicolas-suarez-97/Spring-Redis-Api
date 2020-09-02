@@ -14,8 +14,12 @@ jobs:
       - image: maven:latest 
       - image: redis:latest
     steps:
+      - checkout
       - run:
-          name: Install
+          name: clean
+          command: mvn clean
+      - run:
+          name: install
           command: mvn install
       - run: 
           name: test  
