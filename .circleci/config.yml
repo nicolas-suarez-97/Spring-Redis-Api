@@ -8,16 +8,16 @@ version: 2.1
 #    jobs:
 #      - maven/test # checkout, build, test, and upload test results
 
-version: 2.0
+
+
 jobs:
   build:
-    working_directory: /your/workdir
+    machine:
+      image: ubuntu-1604:202007-01
+
     docker:
-      - image: your/image_for_primary_container
-      - image: postgres:9.6.2-alpine
-        environment:
-          POSTGRES_USER: your_postgres_user
-          POSTGRES_DB: your_postgres_test
+      - image: maven:latest 
+      - image: redis:latest
     steps:
       - checkout
       - run:
@@ -27,39 +27,13 @@ jobs:
             DOCKERIZE_VERSION: v0.3.0
       - run:
           name: Wait for db
-          command: dockerize -wait tcp://localhost:5432 -timeout 1m
-
-# jobs:
-#   build:
-#     machine:
-#       image: ubuntu-1604:202007-01
-#     steps:
-#       - checkout
-#       - run:
-#           name: "Testing"
-#           command: cd ./redis-docker
-#       - run:
-#           name: "Prueba"
-#           command: ls
-    # docker:
-    #   - image: maven:latest 
-    #   - image: redis:latest
-    # steps:
-    #   - checkout
-    #   - run:
-    #       name: install dockerize
-    #       command: wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && sudo tar -C /usr/local/bin -xzvf dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && rm dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz
-    #       environment:
-    #         DOCKERIZE_VERSION: v0.3.0
-    #   - run:
-    #       name: Wait for db
-    #       command: dockerize -wait tcp://localhost:6379 -timeout 1m
-    #   - run:
-    #       name: clean
-    #       command: mvn clean
-    #   - run:
-    #       name: install
-    #       command: mvn install
-    #   - run: 
-    #       name: test  
-    #       command: mvn test
+          command: dockerize -wait tcp://localhost:6379 -timeout 1m
+      - run:
+          name: clean
+          command: mvn clean
+      - run:
+          name: install
+          command: mvn install
+      - run: 
+          name: test  
+          command: mvn test
