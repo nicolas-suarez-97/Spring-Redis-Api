@@ -1,10 +1,23 @@
 version: 2.1
 
-orbs:
-  maven: circleci/maven@0.0.12
+# orbs:
+#   maven: circleci/maven@0.0.12
 
-workflows:
- maven_test:
-   jobs:
-     - maven/test # checkout, build, test, and upload test results
+# workflows:
+#  maven_test:
+#    jobs:
+#      - maven/test # checkout, build, test, and upload test results
 
+jobs:
+  build:
+    docker:
+      - image: circleci/maven@0.0.12
+      - image: circleci/redis
+    steps:
+      - checkout
+      - run:
+          name: Install
+          command: mvn clean Install
+      - run: 
+          name: test  
+          command: mvn test
