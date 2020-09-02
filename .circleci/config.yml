@@ -14,5 +14,6 @@ jobs:
       - image: redis:latest
       - image: maven:latest 
     steps:
-      - run: maven/test
+      - run: mvn clean install
+      - run: mvn test
       
