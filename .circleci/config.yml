@@ -12,7 +12,7 @@ jobs:
   build:
     docker:
       - image: maven:latest 
-      - image: redis:lates
+      - image: redis:latest
     steps:
       - checkout
       - run:
