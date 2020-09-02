@@ -4,4 +4,7 @@ services:
         image: redis:latest
         ports:
             - '6379:6379'
+    maven:
+        image: maven:latest
+    
     
