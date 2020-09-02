@@ -13,5 +13,5 @@ jobs:
     docker:
       - image: redis:latest
     steps:
-      - run: mvn clean install
-      - run: mvn test
+      - run: maven/test
+      
