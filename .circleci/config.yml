@@ -14,7 +14,6 @@ jobs:
       - image: maven:latest 
       - image: redis:latest
     steps:
-      - checkout
       - run:
           name: Install
           command: mvn install
