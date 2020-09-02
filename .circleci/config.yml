@@ -19,9 +19,7 @@ jobs:
       - run:
           name: test
           command: mvn test
-      - run:
-          name: test
-          command: mvn spring-boot:run
+     
       - aws-ecs/run-task:
           cluster: default
           task-definition: first-run-task-definition:1
@@ -32,7 +30,7 @@ workflows:
       jobs:
           - run-task
 
-          
+
 # jobs:
 #   build:
 
