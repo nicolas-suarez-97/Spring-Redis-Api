@@ -38,37 +38,13 @@ class DemoApplicationTests {
         HttpEntity<Student> request = new HttpEntity<>(student, headers);
          
         ResponseEntity<String> result = restTemplate.postForEntity(uri, request, String.class);
+        System.out.println(result.getBody());
         
         //Verify request succeed
         Assertions.assertEquals(201, result.getStatusCodeValue());
 
     }
-	
-	/*@Test
-	public void getStudent() throws URISyntaxException  {
 
-		String id = "d6d0a1ce-f251-4d1a-9f22-80d4003b2e7d";
-		RestTemplate restTemplate = new RestTemplate();
-		final String baseUrl = "http://localhost:"+port+"/students/"+id;
-        URI uri = new URI(baseUrl);
-        
-        HttpHeaders headers = new HttpHeaders();
-        headers.set("accept", "application/json"); 
- 
-        HttpEntity<Student> request = new HttpEntity<>(null, headers);
-         
-        ResponseEntity<String> result = restTemplate.getForEntity(uri, String.class); //postForEntity(uri, request, String.class);
-        System.out.println(result.getBody());
-        //Verify request succeed
-        Assertions.assertEquals(200, result.getStatusCodeValue());
-        Assertions.assertEquals(
-        		"{"
-        		+ "\"id\":\"d6d0a1ce-f251-4d1a-9f22-80d4003b2e7d\","
-        		+ "\"name\":\"juan\","
-        		+ "\"email\":\"n@gmail.com\","
-        		+ "\"phone\":\"3152333333\""
-        		+ "}", result.getBody());
-    }*/
 	
 	@Test
 	public void getAllStudents() throws URISyntaxException  {
