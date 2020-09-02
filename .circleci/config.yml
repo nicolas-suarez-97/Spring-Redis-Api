@@ -1,7 +1,9 @@
 version: 2.1
 
 orbs:
-    aws-ecs: circleci/aws-ecs@1.3.0
+    aws-cli: circleci/aws-cli@0.1.4
+    aws-ecs: circleci/aws-ecs@0.0.15
+    # aws-ecs: circleci/aws-ecs@1.3.0
 jobs:
     run-task:
         docker:
@@ -26,9 +28,11 @@ workflows:
             - run-task
             - aws-ecs/run-task:
                 cluster: default
-                task-definition: first-run-task-definition:1
+                task-definition: first-run-task-definition
                 subnet-ids: "$SUBNET_ONE, $SUBNET_TWO"
                 security-group-ids: $SECURITY_GROUP_IDS
+                requires:
+                  - run-task
           
 # jobs:
 #   build:
