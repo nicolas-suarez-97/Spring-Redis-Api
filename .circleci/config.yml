@@ -8,17 +8,14 @@ version: 2.1
 #    jobs:
 #      - maven/test # checkout, build, test, and upload test results
 
-
-
 jobs:
   build:
 
     docker:
-      - image: maven:latest 
       - image: redis:latest
+      - image: maven:latest 
     steps:
       - checkout
-     
       - run:
           name: clean
           command: mvn clean
@@ -28,3 +25,4 @@ jobs:
       - run: 
           name: test  
           command: mvn test
+  
