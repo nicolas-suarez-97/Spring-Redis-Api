@@ -16,6 +16,9 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Wait for db
+          command: dockerize -wait tcp://localhost:6379 -timeout 1m
+      - run:
           name: clean
           command: mvn clean
       - run:
