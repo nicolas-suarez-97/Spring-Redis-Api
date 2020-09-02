@@ -12,12 +12,12 @@ jobs:
   build:
     docker:
       - image: maven:latest 
-      - image: circleci/redis
+      - image: redis:lates
     steps:
       - checkout
       - run:
           name: Install
-          command: mvn clean Install
+          command: mvn install
       - run: 
           name: test  
           command: mvn test
