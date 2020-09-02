@@ -8,35 +8,45 @@ version: 2.1
 #    jobs:
 #      - maven/test # checkout, build, test, and upload test results
 
-jobs:
-  build:
-    machine:
-      image: ubuntu-1604:202007-01
-    steps:
-      - checkout
-      - run:
-          name: "Testing"
-          command: echo "Hi"
-      - run: 
-          name: docker
-          command: docker-compose up --build
-
-
 # jobs:
 #   build:
-
-#     docker:
-#       - image: maven:latest 
-#       - image: redis:latest
+#     machine:
+#       image: ubuntu-1604:202007-01
 #     steps:
 #       - checkout
-     
 #       - run:
-#           name: clean
-#           command: mvn clean
-#       - run:
-#           name: install
-#           command: mvn install
+#           name: "Testing"
+#           command: echo "Hi"
 #       - run: 
-#           name: test  
-#           command: mvn test
+#           name: docker
+#           command: docker-compose up --build
+
+
+jobs:
+  build:
+
+    docker:
+      - image: maven:latest 
+      - image: redis:latest
+    steps:
+      - checkout
+     
+      - run:
+        name: install dockerize if not found in cache
+        command:
+          if \[ -f /usr/local/bin/dockerize \]; then
+            echo "dockerize found; skipping installation";
+          else wget   https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz
+            && tar -C /usr/local/bin -xzvf dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz
+            && rm dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz;
+          fi
+      - run:
+          name: clean
+          command: mvn clean
+      - run:
+          name: install
+          command: mvn install
+      - run: 
+          name: test  
+          command: mvn test
+      
