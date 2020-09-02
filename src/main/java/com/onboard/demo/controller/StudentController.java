@@ -33,14 +33,16 @@ public class StudentController {
 	}
 	
 	@PostMapping("/students")
-	public ResponseEntity<String> createStudent(@RequestBody Student student) {
+	public ResponseEntity<Student> createStudent(@RequestBody Student student) {
+		Student auxStudent = new Student(null,"","","");
 		try {
-			studentRepository.save(student);
-			return new ResponseEntity<String>("{\"msg\": \"Se ha agregado correctamente.\"}",
-					HttpStatus.OK);
+			String id = studentRepository.save(student);
+			auxStudent = studentRepository.findById(id);
+			return new ResponseEntity<Student>(auxStudent,
+					HttpStatus.CREATED);
 		} catch (Exception e) {
 			// TODO: handle exception
-			return new ResponseEntity<String>("{\"msg\": \"Hubo un error.\"}",
+			return new ResponseEntity<Student>(auxStudent,
 					HttpStatus.BAD_REQUEST);
 		}
 	}

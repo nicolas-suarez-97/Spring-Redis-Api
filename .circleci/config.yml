@@ -18,8 +18,12 @@ version: 2.1
 #           name: "Testing"
 #           command: echo "Hi"
 #       - run: 
-#           name: docker
+#           name: docker-up
 #           command: docker-compose up --build
+
+#       - run: 
+#           name: docker-down
+#           command: docker-compose down
 
 
 jobs:
@@ -31,14 +35,17 @@ jobs:
     steps:
       - checkout
      
+      # - run:
+      #     name: install dockerize
+      #     command: wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && sudo tar -C /usr/local/bin -xzvf dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && rm dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz
+      #     environment:
+      #       DOCKERIZE_VERSION: v0.3.0
+      # - run:
+      #     name: Wait for db
+      #     command: dockerize -wait tcp://localhost:5432 -timeout 1m 
       - run:
-          name: install dockerize
-          command: wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && sudo tar -C /usr/local/bin -xzvf dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && rm dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz
-          environment:
-            DOCKERIZE_VERSION: v0.3.0
-      - run:
-          name: Wait for db
-          command: dockerize -wait tcp://localhost:5432 -timeout 1m 
+          name: clean
+          command: mvn clean
       - run:
           name: clean
           command: mvn clean

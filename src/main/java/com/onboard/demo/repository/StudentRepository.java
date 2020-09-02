@@ -42,9 +42,10 @@ public class StudentRepository implements StudentInterface{
 	}
 
 	@Override
-	public void save(Student student) {
+	public String save(Student student) {
 		student.setId(UUID.randomUUID().toString());
 		hashOperations.put(KEY, student.getId(), student);
+		return student.getId();
 	}
 
 	@Override
