@@ -11,7 +11,7 @@ orbs:
 jobs:
   build:
     docker:
-      - image: circleci/maven@0.0.12
+      - image: maven:latest 
       - image: circleci/redis
     steps:
       - checkout
