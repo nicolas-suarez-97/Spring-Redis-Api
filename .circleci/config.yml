@@ -26,10 +26,8 @@ workflows:
     run-task:
         jobs:
             - run-task
-            - aws-cli/install
-            - aws-cli/configure:
-                aws-access-key-id: "$AWS_ACCESS_KEY_ID"
             - aws-ecs/run-task:
+                aws-access-key-id: "$AWS_ACCESS_KEY_ID"
                 cluster: default
                 task-definition: first-run-task-definition
                 subnet-ids: "$SUBNET_ONE, $SUBNET_TWO"
