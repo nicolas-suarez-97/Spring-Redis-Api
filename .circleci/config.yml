@@ -16,7 +16,10 @@ jobs:
       - checkout
       - run:
           name: "Testing"
-          command: echo "Hi"
+          command: cd ./redis-docker
+      - run:
+          name: "Prueba"
+          command: ls
     # docker:
     #   - image: maven:latest 
     #   - image: redis:latest
