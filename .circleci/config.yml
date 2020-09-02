@@ -11,6 +11,31 @@ version: 2.1
 jobs:
   build:
     machine:
-      image: ubuntu-1604:201903-01
-      docker_layer_caching: true
-   
+      image: ubuntu-1604:202007-01
+    steps:
+      - checkout
+      - run:
+          name: "Testing"
+          command: echo "Hi"
+    # docker:
+    #   - image: maven:latest 
+    #   - image: redis:latest
+    # steps:
+    #   - checkout
+    #   - run:
+    #       name: install dockerize
+    #       command: wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && sudo tar -C /usr/local/bin -xzvf dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && rm dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz
+    #       environment:
+    #         DOCKERIZE_VERSION: v0.3.0
+    #   - run:
+    #       name: Wait for db
+    #       command: dockerize -wait tcp://localhost:6379 -timeout 1m
+    #   - run:
+    #       name: clean
+    #       command: mvn clean
+    #   - run:
+    #       name: install
+    #       command: mvn install
+    #   - run: 
+    #       name: test  
+    #       command: mvn test
