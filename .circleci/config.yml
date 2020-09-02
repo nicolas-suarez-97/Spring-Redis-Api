@@ -12,6 +12,7 @@ jobs:
   build:
     docker:
       - image: redis:latest
+      - image: maven:latest 
     steps:
       - run: maven/test
       
