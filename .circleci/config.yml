@@ -26,6 +26,8 @@ workflows:
     run-task:
         jobs:
             - run-task
+            - aws-cli/configure:
+                aws-access-key-id: "$AWS_ACCESS_KEY_ID"
             - aws-ecs/run-task:
                 cluster: default
                 task-definition: first-run-task-definition
