@@ -5,6 +5,10 @@ services:
         ports:
             - '6379:6379'
     maven:
-        image: maven:latest
+        image: spring-boot
+        build:
+            context: .
+        volumes:
+            - ../
     
     
