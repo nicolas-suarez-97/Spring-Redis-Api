@@ -12,27 +12,25 @@ jobs:
         steps:
             - checkout
             - run:
-                  name: clean
-                  command: mvn clean
-            - run:
                   name: install
                   command: mvn install
             - run:
                   name: test
                   command: mvn test
+            - aws-ecs/run-task:
+                  aws-access-key-id: "$AWS_ACCESS_KEY_ID"
+                  cluster: default
+                  task-definition: first-run-task-definition
+                  subnet-ids: "$SUBNET_ONE, $SUBNET_TWO"
+                  security-group-ids: $SECURITY_GROUP_IDS
+                  # requires:
+                  #   - run-task
      
 workflows:
     run-task:
         jobs:
             - run-task
-            - aws-ecs/run-task:
-                aws-access-key-id: "$AWS_ACCESS_KEY_ID"
-                cluster: default
-                task-definition: first-run-task-definition
-                subnet-ids: "$SUBNET_ONE, $SUBNET_TWO"
-                security-group-ids: $SECURITY_GROUP_IDS
-                requires:
-                  - run-task
+           
           
 # jobs:
 #   build:
