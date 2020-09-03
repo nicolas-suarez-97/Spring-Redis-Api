@@ -17,7 +17,7 @@ jobs:
             - run:
                   name: test
                   command: mvn test
-            - aws-ecs/run-task:
+            - aws-ecs/run:
                   aws-access-key-id: "$AWS_ACCESS_KEY_ID"
                   cluster: default
                   task-definition: first-run-task-definition
