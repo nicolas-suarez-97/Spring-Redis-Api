@@ -29,8 +29,9 @@ workflows:
             #       requires:
             #           - run-task
             - aws-ecs/run-task:
-                  family: "sample-app-service "
-                  cluster-name: "default"
+                  family: "sample-app-service"
+                  cluster: default
+                  cluster-name:  arn:aws:ecs:us-east-1:489173223852:cluster/default
                   container-image-name-updates: "sample-app-service ,tag=stable"
                   requires:
                       - run-task
