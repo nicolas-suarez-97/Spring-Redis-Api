@@ -1,5 +1,5 @@
 FROM openjdk:8-jdk-slim
-COPY "./.circleci/demo-5.2.8.RELEASE.jar" "app.jar"
+COPY "./target/demo-5.2.8.RELEASE.jar" "app.jar"
 EXPOSE 8080
 ENTRYPOINT ["java","-jar","app.jar"]
 
