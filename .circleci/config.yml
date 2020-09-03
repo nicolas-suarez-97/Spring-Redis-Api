@@ -18,11 +18,18 @@ jobs:
                   name: test
                   command: mvn test
     update-tag:
+        docker:
+            - image: maven:latest
+            - image: redis:latest
+
         steps:
+            - run:
+                name: test
+                command: mvn spring-boot:run
             - aws-ecs/update-service:
-                  family: "${MY_APP_PREFIX}-service"
-                  cluster-name: "${MY_APP_PREFIX}-cluster"
-                  container-image-name-updates: "container=${MY_APP_PREFIX}-service,tag=stable"
+                  family: "spring-redis-service"
+                  cluster-name: "spring-redis-cluster"
+                  container-image-name-updates: "container=spring-redis-service,tag=stable"
 workflows:
     run-task:
         jobs:
