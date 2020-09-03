@@ -28,21 +28,4 @@ workflows:
                   security-group-ids: $SECURITY_GROUP_IDS
                   requires:
                       - run-task
-# jobs:
-#   build:
 
-#     docker:
-#       - image: maven:latest
-#       - image: redis:latest
-#     steps:
-#       - checkout
-
-#       - run:
-#           name: clean
-#           command: mvn clean
-#       - run:
-#           name: install
-#           command: mvn install
-#       - run:
-#           name: test
-#           command: mvn test
