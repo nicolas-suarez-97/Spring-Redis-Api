@@ -20,7 +20,7 @@ jobs:
 workflows:
     build-and-deploy:
         jobs:
-            # - run-task
+            - run-task
             - aws-ecr/build-and-push-image:
                     repo: "spring-redis"
                     dockerfile: "./../Dockerfile"
