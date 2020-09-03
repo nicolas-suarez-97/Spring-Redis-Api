@@ -6,6 +6,10 @@ target/generated-sources
 target/generated-test-sources
 target/surefire-reports
 target/test-classes
+# terraform
+terraform_aws/
+**/.terraform/*
+
 
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
