@@ -35,7 +35,7 @@ workflows:
             #             - aws-ecr/build-and-push-image
             - aws-ecs/deploy-service-update:
                     requires:
-                        - aws-ecs/run-task
+                        - aws-ecr/build-and-push-image
                     family: "spring-redis"
                     cluster-name: "default"
                     container-image-name-updates: "container=spring-redis,image-and-tag=${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/spring-redis:latest"
