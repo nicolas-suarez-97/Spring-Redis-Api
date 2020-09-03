@@ -24,7 +24,7 @@ jobs:
                   requires:
                       - run-task
 workflows:
-    update-tag:
+    deploy:
         jobs:
             - update-tag
             # - aws-ecs/run-task:
