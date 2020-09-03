@@ -18,13 +18,13 @@ jobs:
                   command: mvn test
             - aws-ecs/update-service:
                   family: "sample-app-service"
-                  cluster: default
-                  cluster-name:  arn:aws:ecs:us-east-1:489173223852:cluster/default
+                  cluster: "default"
+                  cluster-name: "arn:aws:ecs:us-east-1:489173223852:cluster/default"
                   container-image-name-updates: "sample-app-service ,tag=stable"
                   requires:
                       - run-task
 workflows:
-    deploy:
+    update-tag:
         jobs:
             - update-tag
             # - aws-ecs/run-task:
@@ -35,8 +35,6 @@ workflows:
             #       security-group-ids: $SECURITY_GROUP_IDS
             #       requires:
             #           - run-task
-           
-           
 # jobs:
 #   build:
 
