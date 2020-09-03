@@ -19,7 +19,7 @@ jobs:
                 command: mvn test
 workflows:
     build-and-deploy:
-        jobs:
+        jobs:  
             - run-task
             - aws-ecr/build-and-push-image:
                     repo: "spring-redis"
