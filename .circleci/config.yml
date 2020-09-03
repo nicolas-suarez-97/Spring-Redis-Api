@@ -24,6 +24,9 @@ jobs:
 
         steps:
             - run:
+                name: install
+                command: mvn install
+            - run:
                 name: test
                 command: mvn spring-boot:run
             - aws-ecs/update-service:
