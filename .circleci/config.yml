@@ -29,9 +29,9 @@ workflows:
             - aws-ecs/deploy-service-update:
                     requires:
                         - aws-ecr/build-and-push-image # only run this job once aws-ecr/build-and-push-image has completed
-                    family: "spring-redis"
-                    cluster-name: "default"
-                    container-image-name-updates: "container=spring-redis,tag=latest"
+                    family: "spring-redis-service"
+                    cluster-name: "spring-redis-cluster"
+                    container-image-name-updates: "container=spring-redis-service,tag=latest"
             # - aws-ecs/run-task:
             #       aws-access-key-id: "$AWS_ACCESS_KEY_ID"
             #       cluster: default
