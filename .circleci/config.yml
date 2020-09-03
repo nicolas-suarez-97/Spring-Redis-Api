@@ -2,7 +2,6 @@ version: 2.1
 
 orbs:
     aws-cli: circleci/aws-cli@1.0
-    # aws-ecs: circleci/aws-ecs@0.0.15
     aws-ecs: circleci/aws-ecs@1.3.0
 jobs:
     run-task:
@@ -17,12 +16,6 @@ jobs:
             - run:
                   name: test
                   command: mvn test
-            - aws-ecs/update-service:
-                  family: "spring-redis-service"
-                  cluster-name: "spring-redis-cluster"
-                  container-image-name-updates: "container=spring-redis-service,tag=stable"
-            
-            
 workflows:
     run-task:
         jobs:
@@ -33,6 +26,12 @@ workflows:
                   task-definition: first-run-task-definition
                   subnet-ids: "$SUBNET_ONE, $SUBNET_TWO"
                   security-group-ids: $SECURITY_GROUP_IDS
+                  requires:
+                      - run-task
+            - aws-ecs/update-service:
+                  family: "spring-redis-service"
+                  cluster-name: "spring-redis-cluster"
+                  container-image-name-updates: "container=spring-redis-service,tag=stable"
                   requires:
                       - run-task
            
