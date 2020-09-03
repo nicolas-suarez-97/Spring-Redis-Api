@@ -30,10 +30,10 @@ workflows:
                 security-group-ids: $SECURITY_GROUP_IDS
                 requires:
                   - run-task
-            - aws-ecs/update-service:
-                family: 'spring-redis-service'
-                cluster-name: 'spring-redis-cluster'
-                container-image-name-updates: 'container=spring-redis-service,tag=stable'
+            # - aws-ecs/update-service:
+            #     family: 'spring-redis-service'
+            #     cluster-name: 'spring-redis-cluster'
+            #     container-image-name-updates: 'container=spring-redis-service,tag=stable'
 # jobs:
 #   build:
 
