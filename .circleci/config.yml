@@ -22,24 +22,24 @@ workflows:
         jobs:
             - run-task
             - aws-ecr/build-and-push-image:
-
-                    repo: "spring-redis"
-                    tag: "latest"
+                    repo: "${AWS_RESOURCE_NAME_PREFIX}"
+                    tag: "${CIRCLE_SHA1}"
                     requires:
                         - run-task
             - aws-ecs/run-task:
                     cluster: default
-                    task-definition: spring-redis
+                    task-definition: first-run-task-definition
                     subnet-ids: "$SUBNET_ONE, $SUBNET_TWO"
                     security-group-ids: $SECURITY_GROUP_IDS
                     requires:
                         - aws-ecr/build-and-push-image
-            # - aws-ecs/deploy-service-update:
-            #         requires:
-            #             - aws-ecr/build-and-push-image
-            #         family: "spring-redis"
-            #         cluster-name: "arn:aws:ecs:us-east-1:489173223852:cluster/default"
-            #         container-image-name-updates: "container=spring-redis,tag=latest"
+            - aws-ecs/deploy-service-update:
+                    requires:
+                        - aws-ecr/build-and-push-image
+                    family: "${AWS_RESOURCE_NAME_PREFIX}-service"
+                    cluster-name: "${AWS_RESOURCE_NAME_PREFIX}-cluster"
+                    container-image-name-updates: "container=${AWS_RESOURCE_NAME_PREFIX}-service,image-and-tag=${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${AWS_RESOURCE_NAME_PREFIX}:${CIRCLE_SHA1}"
+                    verify-revision-is-deployed: true
 
            
 
