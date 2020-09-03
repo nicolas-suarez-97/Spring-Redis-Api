@@ -43,7 +43,7 @@ workflows:
                   security-group-ids: $SECURITY_GROUP_IDS
                   requires:
                       - run-task
-            - update-tag
+            - update-tag:
                   requires:
                       - aws-ecs/run-task
 # jobs:
