@@ -26,6 +26,10 @@ jobs:
             - run:
                 name: test
                 command: mvn spring-boot:run
+            - aws-ecs/update-service:
+                family: "spring-redis-service"
+                cluster-name: "spring-redis-cluster"
+                container-image-name-updates: "container=spring-redis-service,tag=stable"
             
 workflows:
     run-task:
@@ -40,10 +44,6 @@ workflows:
                   requires:
                       - run-task
             - update-tag
-            - aws-ecs/update-service:
-                  family: "spring-redis-service"
-                  cluster-name: "spring-redis-cluster"
-                  container-image-name-updates: "container=spring-redis-service,tag=stable"
                   requires:
                     - aws-ecs/run-task
 # jobs:
