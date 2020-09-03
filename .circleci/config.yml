@@ -20,18 +20,18 @@ workflows:
     run-task:
         jobs:
             - run-task
+            # - aws-ecs/run-task:
+            #       aws-access-key-id: "$AWS_ACCESS_KEY_ID"
+            #       cluster: default
+            #       task-definition: first-run-task-definition
+            #       subnet-ids: "$SUBNET_ONE, $SUBNET_TWO"
+            #       security-group-ids: $SECURITY_GROUP_IDS
+            #       requires:
+            #           - run-task
             - aws-ecs/run-task:
-                  aws-access-key-id: "$AWS_ACCESS_KEY_ID"
-                  cluster: default
-                  task-definition: first-run-task-definition
-                  subnet-ids: "$SUBNET_ONE, $SUBNET_TWO"
-                  security-group-ids: $SECURITY_GROUP_IDS
-                  requires:
-                      - run-task
-            - aws-ecs/update-service:
-                  family: "spring-redis-service"
-                  cluster-name: "spring-redis-cluster"
-                  container-image-name-updates: "container=spring-redis-service,tag=stable"
+                  family: "sample-app-service "
+                  cluster-name: "default"
+                  container-image-name-updates: "sample-app-service ,tag=stable"
                   requires:
                       - run-task
            
