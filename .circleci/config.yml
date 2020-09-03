@@ -26,13 +26,6 @@ workflows:
                     tag: "latest"
                     requires:
                         - run-task
-            - aws-ecs/run-task:
-                    cluster: default
-                    task-definition: spring-redis
-                    subnet-ids: "$SUBNET_ONE, $SUBNET_TWO"
-                    security-group-ids: $SECURITY_GROUP_IDS
-                    requires:
-                        - aws-ecr/build-and-push-image
             - aws-ecs/deploy-service-update:
                     requires:
                         - aws-ecs/run-task
