@@ -19,10 +19,6 @@ jobs:
                   command: mvn test
     update-tag:
         steps:
-            - aws-cli/install
-            - aws-cli/configure:
-                  aws-access-key-id: $AWS_ACCESS_KEY_ID
-                  aws-region: $AWS_REGION
             - aws-ecs/update-service:
                   family: "${MY_APP_PREFIX}-service"
                   cluster-name: "${MY_APP_PREFIX}-cluster"
