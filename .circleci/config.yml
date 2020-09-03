@@ -42,7 +42,9 @@ workflows:
                   security-group-ids: $SECURITY_GROUP_IDS
                   requires:
                       - run-task
-            - update-tag
+            - update-tag:
+                  requires: 
+                      - run-task
             # - aws-ecs/update-service:
             #     family: 'spring-redis-service'
             #     cluster-name: 'spring-redis-cluster'
