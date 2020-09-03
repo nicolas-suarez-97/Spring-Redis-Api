@@ -35,8 +35,7 @@ workflows:
                     container-image-name-updates: "container=${AWS_RESOURCE_NAME_PREFIX}-service,image-and-tag=${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${AWS_RESOURCE_NAME_PREFIX}:${CIRCLE_SHA1}"
                     verify-revision-is-deployed: true
 
-           
-
+    
 
 # - aws-ecs/run-task:
 #         cluster: default
