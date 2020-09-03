@@ -4,6 +4,18 @@ orbs:
     aws-cli: circleci/aws-cli@1.0
     aws-ecs: circleci/aws-ecs@1.3.0
 jobs:
+    tests:
+        docker:
+            - image: maven:latest
+            - image: redis:latest
+        steps:
+            - checkout
+            - run:
+                name: install
+                command: mvn install
+            - run:
+                name: test
+                command: mvn test
     update-tag:
         docker:
             - image: maven:latest
@@ -11,23 +23,25 @@ jobs:
         steps:
             - checkout
             - run:
-                  name: install
-                  command: mvn install
+                name: install
+                command: mvn install
             - run:
-                  name: test
-                  command: mvn test
-
-workflows:
-    deploy:
-        jobs:
-            - update-tag
+                name: test
+                command: mvn spring-boot:run
             - aws-ecs/update-service:
                 family: "sample-app-service"
                 cluster: "default"
                 cluster-name: "arn:aws:ecs:us-east-1:489173223852:cluster/default"
                 container-image-name-updates: "sample-app-service ,tag=stable"
                 requires:
-                    - run-task
+                    - tests
+
+workflows:
+    deploy:
+        jobs:
+            - tests
+            - update-tag
+
             # - aws-ecs/run-task:
             #       aws-access-key-id: "$AWS_ACCESS_KEY_ID"
             #       cluster: default
