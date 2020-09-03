@@ -17,22 +17,11 @@ jobs:
             - run:
                   name: test
                   command: mvn test
-    update-tag:
-        docker:
-            - image: maven:latest
-            - image: redis:latest
-
-        steps:
-            - run:
-                name: install
-                command: mvn install
-            - run:
-                name: test
-                command: mvn spring-boot:run
             - aws-ecs/update-service:
-                family: "spring-redis-service"
-                cluster-name: "spring-redis-cluster"
-                container-image-name-updates: "container=spring-redis-service,tag=stable"
+                  family: "spring-redis-service"
+                  cluster-name: "spring-redis-cluster"
+                  container-image-name-updates: "container=spring-redis-service,tag=stable"
+            
             
 workflows:
     run-task:
@@ -46,9 +35,7 @@ workflows:
                   security-group-ids: $SECURITY_GROUP_IDS
                   requires:
                       - run-task
-            - update-tag:
-                  requires:
-                      - aws-ecs/run-task
+           
 # jobs:
 #   build:
 
