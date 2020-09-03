@@ -29,7 +29,7 @@ workflows:
                         - run-task
             - aws-ecs/run-task:
                     cluster: default
-                    task-definition: first-run-task-definition
+                    task-definition: spring-redis
                     subnet-ids: "$SUBNET_ONE, $SUBNET_TWO"
                     security-group-ids: $SECURITY_GROUP_IDS
                     requires:
