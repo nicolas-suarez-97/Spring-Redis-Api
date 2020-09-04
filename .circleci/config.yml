@@ -8,7 +8,7 @@ jobs:
     run-task:
         docker:
             - image: maven:latest
-            - image: redis:latest
+            # - image: redis:latest
         steps:
             - checkout
             - run:
